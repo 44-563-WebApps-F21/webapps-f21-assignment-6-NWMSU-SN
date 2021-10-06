@@ -28,13 +28,13 @@
 <script>
     let correct = 0;
     let wrong = 0;
-    let ad = 0;
+    let counter = 0;
     let currentImage = 1;
     function processPhrase() {
         console.log("Getting form values")
         secret = document.getElementById("f1secret").value
         guess = document.getElementById("f1guess").value
-        if (ad < 3) {
+       
             if (secret == guess) {
                 alert("Access allowed")
                 correct++;
@@ -43,13 +43,10 @@
             else {
                 alert("Access denied")
                 wrong++;
-                ad++;
+                counter++;
                 document.getElementById("wrongc").innerHTML = wrong;
             }
-        }
-        else {
-            alert("Account locked");
-        }
+       
     }
     function changeImageHandler() {
         switch (currentImage) {
