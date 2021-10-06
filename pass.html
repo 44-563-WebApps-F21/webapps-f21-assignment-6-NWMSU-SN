@@ -25,50 +25,89 @@
         }
     </style>
 
-    <script>
-        var correct = 0, wrong = 0;
-        function processPhrase() {
-
-            spValue = document.getElementById("secretphrase").value
-            phraseValue = document.getElementById("phrase").value
-            resultDiv = document.getElementById("result")
-
-            if (spValue == phraseValue) {
-                alert("Access allowed");
-                correct = correct + 1;
-            } else {
-                alert("Access denied");
-                wrong = wrong + 1;
+<script>
+    let correct = 0;
+    let wrong = 0;
+    let ad = 0;
+    let currentImage = 1;
+    function processPhrase() {
+        console.log("Getting form values")
+        secret = document.getElementById("f1secret").value
+        guess = document.getElementById("f1guess").value
+        if (ad < 3) {
+            if (secret == guess) {
+                alert("Access allowed")
+                correct++;
+                document.getElementById("correctc").innerHTML = correct;
             }
-            resultDiv.innerHTML = "Correct count: " + correct + '<br>' + " Worng count: " + wrong;
-
+            else {
+                alert("Access denied")
+                wrong++;
+                ad++;
+                document.getElementById("wrongc").innerHTML = wrong;
+            }
         }
-    </script>
+        else {
+            alert("Account locked");
+        }
+    }
+    function changeImageHandler() {
+        switch (currentImage) {
+            case 1:
+                document.getElementById("image-carousel").src = "impala.jpg";
+                document.getElementById("image-carousel-guess").src = "narwhal.jpg";
+                break;
+            case 2:
+                document.getElementById("image-carousel").src = "narwhal.jpg";
+                document.getElementById("image-carousel-guess").src = "amur.jpg";
+                break;
+            case 3:
+                document.getElementById("image-carousel").src = "amur.jpg";
+                document.getElementById("image-carousel-guess").src = "impala.jpg";
+                break;
+        }
+        currentImage = currentImage==3?1:currentImage+1;
+    }
+</script>
+
 </head>
 
 
 
 <body>
     <div class="container">
-        <h2>Pass phrase by "Santhosh Naini"</h2>
-        <form>
-            <div class="form-group"><label for="secretphrase">Enter the secret phrase </label>
-                <input type="password" class="form-control" id="secretphrase" value="Let me in" />
+        <h2 class="text-center"><marquee>Pass phrase by Santhosh Naini</marquee></h2>
+        <br>
+        <form class="col g-2">
+            <div class="row mb-3">
+            <label for="f1secret" class="col-sm-2 form-label fw-bold">Enter the secret phrase</label>
+            <div class="col-sm-10">
+            <input type="password" class="form-control form-control" id="f1secret" name="f1secret" value="Let me in">
             </div>
-            <div class="form-group">
-
-                <label for="phrase">Enter a phrase </label>
-                <input type="text" class="form-control form-check-label" id="phrase" autofocus />
             </div>
-            <div class="buttonSubmit">
-
-                <button class="btn btn-primary " type="button" onclick="processPhrase()">Check the
-                    phrase</button>
+            <br>
+            <div class="row mb-3">
+            <label for="f1guess" class="col-sm-2 form-label fw-bold">Enter a phrase</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="f1guess" name="f1guess" autofocus> <br>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 offset-sm-2">
+            <input type="button" class="btn btn-primary" onclick="processPhrase()" value="Check the phrase">
+            </div>
             </div>
         </form>
-        <div id="result" class="form-group"></div>
-    </div>
+        <p class="fw-bold fst-italic">Wrong count is: <span id="wrongc" style="color: red;" class=""></span></p>
+        <p class="fw-bold fst-italic">Correct count is: <span style="color: green;" id="correctc"></span></p>
 
+        <div class="text-center">
+            <p class="text-danger">Click below Image to see Changes</p>
+            <img class="rounded" src="amur.jpg" width="200" height="200" id="image-carousel" onclick="changeImageHandler()">
+            <img class="rounded" src="impala.jpg" width="100" height="100" id="image-carousel-guess" onclick="changeImageHandler()">
+        </div>
+    </div>
+    </div>
 </body>
 
 </html>
