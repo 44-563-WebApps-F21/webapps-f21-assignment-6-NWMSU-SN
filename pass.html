@@ -34,7 +34,7 @@
         console.log("Getting form values")
         secret = document.getElementById("f1secret").value
         guess = document.getElementById("f1guess").value
-       
+        if (counter < 3) {
             if (secret == guess) {
                 alert("Access allowed")
                 correct++;
@@ -46,7 +46,10 @@
                 counter++;
                 document.getElementById("wrongc").innerHTML = wrong;
             }
-       
+        }
+        else {
+            alert("Account locked");
+        }
     }
     function changeImageHandler() {
         switch (currentImage) {
